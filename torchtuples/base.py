@@ -261,6 +261,7 @@ class Model(object):
         metrics=None,
         val_data=None,
         val_batch_size=8224,
+        n_control =1,
         **kwargs,
     ):
         """Fit  model with inputs and targets.
@@ -285,11 +286,11 @@ class Model(object):
         """
         if target is not None:
             input = (input, target)
-        dataloader = self.make_dataloader(input, batch_size, shuffle, num_workers, **kwargs)
+        dataloader = self.make_dataloader(input, batch_size, shuffle, num_workers, n_control,  **kwargs)
         val_dataloader = val_data
         if (is_dl(val_data) is False) and (val_data is not None):
             val_dataloader = self.make_dataloader(
-                val_data, val_batch_size, shuffle=False, num_workers=num_workers, **kwargs
+                val_data, val_batch_size, shuffle=False, num_workers=num_workers, n_control=n_control, **kwargs
             )
         log = self.fit_dataloader(dataloader, epochs, callbacks, verbose, metrics, val_dataloader)
         return log
