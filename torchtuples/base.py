@@ -182,7 +182,7 @@ class Model(object):
         return {name: metric(*out, *target) for name, metric in metrics.items()}
 
     def _setup_metrics(self, metrics=None):
-        all_metrics = {"loss": self.loss}
+        all_metrics = {"loss": self.loss, "loss_baseline": self.loss}
         if metrics is not None:
             if not hasattr(metrics, "items"):
                 if not hasattr(metrics, "__iter__"):
